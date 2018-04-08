@@ -2,7 +2,7 @@
   <div>
     <input type="text" class="todo-input" placeholder="What needs to be done" v-model="newTodo" @keyup.enter="addTodo">
     <transition-group name="fade" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-    <todo-item v-for="(todo, index) in todosFiltered" :key="todo.id" :todo="todo" :index="index" :checkAll="!anyRemaining">
+    <todo-item v-for="todo in todosFiltered" :key="todo.id" :todo="todo" :checkAll="!anyRemaining">
     </todo-item>
     </transition-group>
 
@@ -62,7 +62,7 @@ export default {
     }
   },
   created() {
-    eventBus.$on('removedTodo', (index) => this.removeTodo(index))
+    eventBus.$on('removedTodo', (id) => this.removeTodo(id))
     eventBus.$on('finishedEdit', (data) => this.finishedEdit(data))
     eventBus.$on('checkAllChanged', (checked) => this.checkAllTodos(checked))
     eventBus.$on('filterChanged', (filter) => this.filter = filter)
@@ -112,7 +112,8 @@ export default {
       this.newTodo = ''
       this.idForTodo++
     },
-    removeTodo(index) {
+    removeTodo(id) {
+      const index = this.todos.findIndex((item) => item.id == id)
       this.todos.splice(index, 1)
     },
     checkAllTodos() {
@@ -122,7 +123,8 @@ export default {
       this.todos = this.todos.filter(todo => !todo.completed)
     },
     finishedEdit(data) {
-      this.todos.splice(data.index, 1, data.todo)
+      const index = this.todos.findIndex((item) => item.id == data.id)
+      this.todos.splice(index, 1, data)
     }
   }
 }
