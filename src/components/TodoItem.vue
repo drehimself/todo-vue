@@ -4,14 +4,14 @@
         <input type="checkbox" v-model="completed" @change="doneEdit">
         <div v-if="!editing" @dblclick="editTodo" class="todo-item-label" :class="{ completed : completed }">{{ title }}</div>
         <input v-else class="todo-item-edit" type="text" v-model="title" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus>
-      </div>
-      <div>
-        <button @click="pluralize">Plural</button>
-        <span class="remove-item" @click="removeTodo(todo.id)">
-          &times;
-        </span>
-      </div>
-  </div>
+    </div> <!-- end todo-item-left -->
+    <div>
+      <button @click="pluralize">Plural</button>
+      <span class="remove-item" @click="removeTodo(todo.id)">
+        &times;
+      </span>
+    </div>
+  </div> <!-- end todo-item -->
 </template>
 
 <script>
@@ -44,11 +44,6 @@ export default {
   },
   watch: {
     checkAll() {
-      // if (this.checkAll) {
-      //   this.completed = true
-      // } else {
-      //   this.completed = this.todo.completed
-      // }
       this.completed = this.checkAll ? true : this.todo.completed
     }
   },
@@ -61,7 +56,7 @@ export default {
   },
   methods: {
     removeTodo(id) {
-      eventBus.$emit('removedTodo', id)
+      this.$store.dispatch('deleteTodo', id)
     },
     editTodo() {
       this.beforeEditCache = this.title
@@ -72,13 +67,12 @@ export default {
         this.title = this.beforeEditCache
       }
       this.editing = false
-      eventBus.$emit('finishedEdit', {
+      this.$store.dispatch('updateTodo', {
         'id': this.id,
         'title': this.title,
         'completed': this.completed,
         'editing': this.editing,
       })
-
     },
     cancelEdit() {
       this.title = this.beforeEditCache
@@ -89,7 +83,7 @@ export default {
     },
     handlePluralize() {
       this.title = this.title + 's'
-      eventBus.$emit('finishedEdit', {
+      this.$store.dispatch('updateTodo', {
         'id': this.id,
         'title': this.title,
         'completed': this.completed,
