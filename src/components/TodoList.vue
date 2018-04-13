@@ -45,6 +45,9 @@ export default {
       idForTodo: 3,
     }
   },
+  created() {
+    this.$store.dispatch('retrieveTodos')
+  },
   computed: {
     anyRemaining() {
       return this.$store.getters.anyRemaining
