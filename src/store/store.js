@@ -64,11 +64,14 @@ export const store = new Vuex.Store({
     },
     retrieveTodos(state, todos) {
       state.todos = todos
+    },
+    updateLoading(state, loading) {
+      state.loading = loading
     }
   },
   actions: {
     retrieveTodos(context) {
-      context.state.loading = true
+      context.commit('updateLoading', true)
       db.collection('todos').get()
       .then(querySnapshot => {
         let tempTodos = []
@@ -82,7 +85,7 @@ export const store = new Vuex.Store({
           tempTodos.push(data)
         })
 
-        context.state.loading = false
+        context.commit('updateLoading', false)
         const tempTodosSorted = tempTodos.sort((a, b) => {
           return a.timestamp.seconds - b.timestamp.seconds
         })
