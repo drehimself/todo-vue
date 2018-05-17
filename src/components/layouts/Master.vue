@@ -10,7 +10,10 @@
 
     </ul>
 
-    <router-view></router-view>
+    <transition name="router-animation" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
+      <router-view></router-view>
+    </transition>
+
   </div>
 </template>
 
@@ -25,6 +28,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css");
+  @import url('cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css');
 
   * {
     box-sizing: border-box;
@@ -114,6 +119,85 @@ export default {
       background: darken(#60BD4F, 10%);
     }
 
+    &:disabled {
+      background: lighten(#60BD4F, 25%);
+      cursor: not-allowed;
+    }
+
+  }
+
+  .server-error {
+    margin-bottom: 12px;
+    font-size: 16px;
+    padding: 10px 16px;
+    color: #a94442;
+    background: #F3DEDE;
+    border-radius: 4px;
+  }
+
+  .success-message {
+    background-color: #dff0d8;
+    color: #3c763d;
+    margin-bottom: 12px;
+    font-size: 16px;
+    padding: 10px 16px;
+    border-radius: 4px;
+  }
+
+  .form-error {
+    font-size: 16px;
+    color: #a94442;
+  }
+
+  .input-error {
+    border: 1px solid red;
+  }
+
+  .page-wrapper {
+    animation-duration: 0.2s;
+  }
+
+  // CSS Spinner
+
+  .lds-ring-container {
+    position: absolute;
+    right: 50%;
+  }
+
+  .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    // margin: 6px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
 </style>

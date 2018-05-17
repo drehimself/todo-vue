@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-center">
+  <div class="page-wrapper flex-center">
     Landing Page content here
   </div>
 </template>

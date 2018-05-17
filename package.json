@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cxlt-vue2-toastr": "^1.1.0",
     "node-sass": "^4.8.3",
     "sass-loader": "^6.0.7",
+    "vee-validate": "^2.0.9",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
