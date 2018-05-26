@@ -100,6 +100,7 @@ export default {
         id: this.idForTodo,
         title: this.newTodo,
         completed: false,
+        editing: false,
       })
 
       this.newTodo = ''
