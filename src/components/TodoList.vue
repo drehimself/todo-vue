@@ -123,8 +123,8 @@ export default {
     removeTodo(index) {
       this.todos.splice(index, 1)
     },
-    checkAllTodos() {
-      this.todos.forEach((todo) => todo.completed = event.target.checked)
+    checkAllTodos(event) {
+     this.todos.forEach((todo) => {todo.completed = event.target.checked})
     },
     clearCompleted() {
       this.todos = this.todos.filter(todo => !todo.completed)
